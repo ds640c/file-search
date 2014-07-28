@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
@@ -56,7 +55,7 @@ public class FileSearchUtility {
 	 * @return list of matching files
 	 */
 	public List<File> search() { 
-		Collection<File> files = FileUtils.listFiles(directory, this.activeFileFilter , this.activeDirectoryFilter);
+		final Collection<File> files = FileUtils.listFiles(directory, this.activeFileFilter , this.activeDirectoryFilter);
 		return new ArrayList<File>(files);
 	}
 }

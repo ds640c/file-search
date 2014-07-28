@@ -1,7 +1,12 @@
 package com.dnsun.filesearch;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.filefilter.IOFileFilter;
@@ -22,8 +27,11 @@ public class RegexContentFileFilter implements IOFileFilter {
 	 * @param pattern regular expression to match content against
 	 */
 	public RegexContentFileFilter (final IOFileFilter filter, final Pattern pattern) {
+		//make sure we find the request pattern inside a block of text
+		final StringBuffer newRegex = new StringBuffer(".*").append(pattern.pattern()).append(".*");
+		
 		this.filter = filter;
-		this.pattern = pattern;
+		this.pattern = Pattern.compile(newRegex.toString());
 	}
 
 	/* (non-Javadoc)
@@ -40,16 +48,32 @@ public class RegexContentFileFilter implements IOFileFilter {
 	 */
 	@Override
 	public boolean accept(final File file) {
-		return  filter.accept(file) || this.contentsMatch(file);
+		return  this.filter.accept(file) || this.contentsMatch(file);
 	}
 	
 	/**
 	 * Checks the file content
 	 * 
 	 * @return match result
+	 * @throws IOException 
 	 */
-	private boolean contentsMatch (final File file) {
-		return true;
+	private boolean contentsMatch (final File file)  {
+		try {
+			final BufferedReader reader = Files.newBufferedReader(file.toPath(), Charset.defaultCharset() );
+			
+			String line = null;
+			while ( (line = reader.readLine()) != null ) {
+				 final Matcher matcher = this.pattern.matcher(line);
+				 if (matcher.matches()) {
+					 return true;
+				 }
+			}
+		}
+		catch (IOException e) {
+			//we're not going to stop if we can't read the file
+		}
+		
+		return false;
 	}
 
 }
