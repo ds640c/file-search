@@ -24,8 +24,8 @@ illegal input in a friendly way.
 
 Requirements
 ------------
-Java 1.7+
-Maven 3.2+
+	Java 1.7+
+	Maven 3.2+
 
 
 Implementation
