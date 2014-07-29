@@ -84,7 +84,7 @@ public class FileSearchUtilityTest {
 		final FileSearchUtility fsUtility = new FileSearchUtility(this.pattern, this.directoryPath, true, true);
 		List<File> files = fsUtility.search(); 
 		
-		assertTrue("One files found", files.size() ==2);
+		assertTrue("Two files found", files.size() ==2);
 		assertTrue("Found by content in directory", files.contains(file1));
 		assertTrue("Found by name in subdirectory", files.contains(file2));
 	}	
