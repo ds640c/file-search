@@ -11,6 +11,8 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
+import com.dnsun.filesearch.RegexContentFileFilter;
+
 
 /**
  * This utility provides the ability to search for occurrences of regular

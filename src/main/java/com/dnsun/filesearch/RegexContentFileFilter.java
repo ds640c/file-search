@@ -23,21 +23,17 @@ public class RegexContentFileFilter implements IOFileFilter {
 	/**
 	 * Constructs a file filter that also matches content to a regular expression.
 	 * 
-	 * @param filter the wrapped FileFilter
+	 * @param filter the wrapped FileFilter 
 	 * @param pattern regular expression to match content against
 	 */
 	public RegexContentFileFilter (final IOFileFilter filter, final Pattern pattern) {
-		//make sure we find the request pattern inside a block of text
-		final StringBuffer newRegex = new StringBuffer(".*").append(pattern.pattern()).append(".*");
-		
 		this.filter = filter;
-		this.pattern = Pattern.compile(newRegex.toString());
+		this.pattern = pattern;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.apache.commons.io.filefilter.IOFileFilter#accept(java.io.File, java.lang.String)
 	 */
-	@Override
 	public boolean accept(File dir, String name) {
 		throw new UnsupportedOperationException();
 	}
@@ -46,7 +42,6 @@ public class RegexContentFileFilter implements IOFileFilter {
 	/* (non-Javadoc)
 	 * @see java.io.FileFilter#accept(java.io.File)
 	 */
-	@Override
 	public boolean accept(final File file) {
 		return  this.filter.accept(file) || this.contentsMatch(file);
 	}
@@ -57,16 +52,21 @@ public class RegexContentFileFilter implements IOFileFilter {
 	 * @return match result
 	 * @throws IOException 
 	 */
-	private boolean contentsMatch (final File file)  {
+	private boolean contentsMatch (final File file) {
 		try {
-			final BufferedReader reader = Files.newBufferedReader(file.toPath(), Charset.defaultCharset() );
-			
+			BufferedReader reader = Files.newBufferedReader(file.toPath(), Charset.defaultCharset() );
 			String line = null;
-			while ( (line = reader.readLine()) != null ) {
-				 final Matcher matcher = this.pattern.matcher(line);
-				 if (matcher.matches()) {
-					 return true;
-				 }
+			
+			try {
+				while ( (line = reader.readLine()) != null ) {
+					 final Matcher matcher = this.pattern.matcher(line);
+					 if (matcher.matches()) {
+						 return true;
+					 }
+				}
+			}
+			finally {
+				reader.close();
 			}
 		}
 		catch (IOException e) {

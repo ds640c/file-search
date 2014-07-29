@@ -1,5 +1,5 @@
 package com.dnsun.filesearch;
 
-public class FileSearchTest {
 
+public class FileSearchTest {
 }

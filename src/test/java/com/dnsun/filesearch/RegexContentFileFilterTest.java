@@ -18,8 +18,8 @@ import org.junit.Test;
 
 public class RegexContentFileFilterTest {
 	private final String validFileName = "test55.txt";
-	private final String directoryPath = System.getProperty("user.dir") + "/testfilesearch/"; 
-	private final Pattern pattern= Pattern.compile("test\\d{3}");
+	private final String directoryPath = System.getProperty("user.dir") + "/target/testfilesearch/"; 
+	private final Pattern pattern= Pattern.compile(".*test\\d{3}.*");
 	private final IOFileFilter fileFilter = new NameFileFilter(this.validFileName);
 	private final IOFileFilter contentFilter = new RegexContentFileFilter(this.fileFilter, this.pattern);
 	private File directory;
@@ -33,7 +33,7 @@ public class RegexContentFileFilterTest {
 	@Test 
 	public void testMatchFileMatchContents() throws IOException {
 		final File file = new File(this.directoryPath + this.validFileName);
-		String content = "this info test123 should match";
+		final String content = "this info test123 should match";
 		Files.write( file.toPath(), content.getBytes(),  StandardOpenOption.CREATE); 
 		
 		boolean accepts = contentFilter.accept(file);
@@ -43,7 +43,7 @@ public class RegexContentFileFilterTest {
 	@Test
 	public void testMatchFileNoMatchContents() throws IOException {
 		final File file = new File(this.directoryPath + this.validFileName);
-		String content = "this info  should not match";
+		final String content = "this info  should not match";
 		Files.write( file.toPath(), content.getBytes(),  StandardOpenOption.CREATE); 
 		
 		boolean accepts = contentFilter.accept(file);
@@ -53,27 +53,7 @@ public class RegexContentFileFilterTest {
 	@Test
 	public void testNotMatchFileMatchContents() throws IOException {
 		final File file = new File(this.directoryPath + "badfilename.txt");
-		String content = "this info test123 should match";
-		Files.write( file.toPath(), content.getBytes(),  StandardOpenOption.CREATE); 
-		
-		boolean accepts = contentFilter.accept(file);
-		assertTrue(accepts);
-	}
-	
-	@Test
-	public void testNotMatchFileMatchContentEnd() throws IOException {
-		final File file = new File(this.directoryPath + "badfilename.txt");
-		String content = "this info  should match test888";
-		Files.write( file.toPath(), content.getBytes(),  StandardOpenOption.CREATE); 
-		
-		boolean accepts = contentFilter.accept(file);
-		assertTrue(accepts);
-	}
-	
-	@Test
-	public void testNotMatchFileMatchContentStart() throws IOException {
-		final File file = new File(this.directoryPath + "badfilename.txt");
-		String content = "test777 this info  should match";
+		final String content = "this info test123 should match";
 		Files.write( file.toPath(), content.getBytes(),  StandardOpenOption.CREATE); 
 		
 		boolean accepts = contentFilter.accept(file);
@@ -83,7 +63,7 @@ public class RegexContentFileFilterTest {
 	@Test
 	public void testNoMatchFileNoMatchContents() throws IOException {
 		final File file = new File(this.directoryPath + "badfilename.txt");
-		String content = "this info should not match";
+		final String content = "this info should not match";
 		Files.write( file.toPath(), content.getBytes(),  StandardOpenOption.CREATE); 
 		
 		boolean accepts = contentFilter.accept(file);
