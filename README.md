@@ -24,10 +24,15 @@ illegal input in a friendly way.
 
 
 Requirements
-------------
-	Java 1.7+
-	Maven 3.2+
+------------ 
+Build:
 
+    Java 1.7+
+	Maven 3.2+
+	
+Run:
+
+    Java 1.7+
 
 Implementation
 --------------
@@ -42,11 +47,11 @@ To execute all unit tests, at the project root:
     mvn test
 
 
-Run
----
-file-search-executable jar is available for download at the root level of this project. The params and options can be use when executing the jar. For example:
+Run the Program
+---------------
+The file-search-executable.jar is available for download at the root level of this project. The params and options can be use when executing the jar. For example:
 
-    java -jar file-search-executable.jar -c  "/Users/dsun/temp" "^the start\\d{3}"
+    java -jar file-search-executable.jar -c -r "/Users/dsun/temp" "^the start\\d{3}"
 
 Documentation
 --------------
