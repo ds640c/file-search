@@ -11,6 +11,30 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+/**
+*   <p>
+*	This program searches for occurrences of regular
+*	expressions within a directory tree (a little like 'grep' and a little like
+*	'find'). The program should accept command-line arguments in the following
+*	 </p>
+*	     
+*	  [options] &lt;path&gt; &lt;regex&gt;
+*	<p>    
+*	The program should search files in specified path for the specified regex, with
+*	the following options available:
+*	 </p>
+*	<ul>
+*	    <li> -c  Look for the regex in file contents; otherwise look at the filename.</li>
+*	 
+*	    <li> -r  Walk the directory structure recursively, examining all sub-folders,</li>
+*	         sub-sub-folder, etc. Otherwise just look in the specified directory.
+*	</ul>   
+*   <p>  
+*	Output will simply be the relative path to all files in the directory (or tree)
+*	whose name (or content) matches the regex filter. The program should handle
+*	illegal input in a friendly way.
+*   </p>
+*/
 public class FileSearch {
 	private static final String HELP_PARAM = "h";
 	private static final String RECURSIVE_PARAM = "r";
@@ -20,11 +44,22 @@ public class FileSearch {
 	private final FileSearchUtility utility;
 	private final String directory;
 	
+	/**
+	 * Construct the FileSearch
+	 * 
+	 * @param directory start search in this directory
+	 * @param utility that performs the file search
+	 */
 	public FileSearch(final String directory, final FileSearchUtility utility) {
 		this.utility = utility;
 		this.directory = directory;
 	}
 	
+	
+	/**
+	 * Searches directory based on parameters and regex. Prints out the results to the console.
+	 * 
+	 */
 	public void search() {
 		List<File> files = utility.search();
 		for (File file : files) {
@@ -74,6 +109,11 @@ public class FileSearch {
 		}  
 	}  
 	
+	/**
+	 * Creates the valid command line options
+	 * 
+	 * @return valid options for this program
+	 */
 	private static Options createOptions() {
 		final Options options = new Options();
 		options.addOption(HELP_PARAM, false, "prints the help");
@@ -82,6 +122,14 @@ public class FileSearch {
 		return options;
 	}
 	
+	/**
+	 * Creates a CommandLine that contains user submitted parameters
+	 * 
+	 * @param args command line arguments
+	 * @param options the valid command line parameters
+	 * @return a CLI command line
+	 * @throws ParseException
+	 */
 	private static CommandLine createCommandLine(final String[] args, final Options options) throws ParseException{
 		final CommandLineParser parser = new PosixParser();
 		final CommandLine cmd = parser.parse(options, args);
