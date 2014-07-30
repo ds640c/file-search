@@ -15,8 +15,8 @@ import com.dnsun.filesearch.RegexContentFileFilter;
 
 
 /**
- * This utility provides the ability to search for occurrences of regular
- * expressions within a directory tree.
+ * This utility provides the ability to find files that match a regular
+ * expressions. The search can optionally be recursive and to match content.
  *
  */
 public class FileSearchUtility {
