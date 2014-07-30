@@ -61,12 +61,12 @@ public class FileSearch {
 	 * 
 	 */
 	public void search() {
-		List<File> files = utility.search();
+		final List<File> files = utility.search();
 		for (File file : files) {
 			System.out.println(file.getPath().replace(this.directory, "."));
 		}
 		
-		if(files.size()==0) {
+		if (files.size()==0) {
 			System.out.println("No files found matching your search criteria.");
 		}
 	}
@@ -99,7 +99,8 @@ public class FileSearch {
 			//search and display the output
 			fileSearch.search();
  
-		} catch (ParseException e) {
+		}
+		catch (ParseException e) {
 			System.out.println("Error reading your command line arguments.");
 			e.printStackTrace();
 		}
