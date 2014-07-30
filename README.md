@@ -1,6 +1,6 @@
 file-search
 ===========
-This is a "homework" assignment with the following requirements:
+This is a programming assignment with the following requirements:
 
 You will be implementing a program to search for occurrences of regular
 expressions within a directory tree (a little like 'grep' and a little like
@@ -12,7 +12,8 @@ form:
 The program should search files in specified path for the specified regex, with
 the following options available:
  
-     -c  Look for the regex in file contents; otherwise look at the filename.
+     -c  Look for the regex in file contents in addition to the filename. Otherwise
+     	 just the filename.
  
      -r  Walk the directory structure recursively, examining all sub-folders,
          sub-sub-folder, etc. Otherwise just look in the specified directory.
@@ -30,8 +31,9 @@ Requirements
 
 Implementation
 --------------
-The project uses Maven for dependency management, building and testing.  Apache Commons IO and Java 7 nio libraries
-are used extensively. One would think that given the 'homework' requirements, the 'instructor' intends to see code dealing with recursion and tree walking.  Since this isn't explicitly required, we'll just use the well known libraries to get this done.
+The project uses Maven for dependency management, building and testing.  Apache Commons IO and Java 7 nio libraries are used extensively for the file processing and search. Apache Commons CLI library handles the command line parameter parsing.
+
+Given the nature of this assignment, it seems to be an exercise in recursion and tree walking.  Since this isn't explicitly required, I choose to create a project that would most closely resemble what I would develop in a professional setting.  I'm focusing on standardized build and dependency management process, testing, documentation and leveraging well known and tested open source libraries.
 
 Run Tests
 ------------
@@ -42,4 +44,10 @@ To execute all unit tests, at the project root:
 
 Run
 ---
-This would probably be an executable jar file.  
+file-search-executable jar is available for download at the root level of this project. The params and options can be use when executing the jar. For example:
+
+    java -jar file-search-executable.jar -c  "/Users/dsun/temp" "^the start\\d{3}"
+
+Documentation
+--------------
+In addition to this README.MD, Javadocs are available in the doc directory of this project.
