@@ -46,7 +46,12 @@ To execute all unit tests, at the project root:
 
     mvn test
 
+Build Executable Jar
+--------------------
+Run this command to create the jar file in the target directory:
 
+    mvn clean compile assembly:single
+ 	
 Run the Program
 ---------------
 The file-search-executable.jar is available for download at the root level of this project. The params and options can be use when executing the jar. For example:
