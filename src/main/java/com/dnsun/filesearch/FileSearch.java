@@ -80,6 +80,7 @@ public class FileSearch {
 			final CommandLine cmd = createCommandLine(args, options); 
 			if (cmd.hasOption(HELP_PARAM)) {
 				help.printHelp(HELP_TEXT, HELP_HEADER, options, "");
+				return;
 			}
 			
 			if (cmd.getArgList().size() !=2) {
